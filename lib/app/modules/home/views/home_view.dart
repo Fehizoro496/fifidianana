@@ -210,8 +210,8 @@ class HomeView extends GetView<HomeController> {
                       itemBuilder: (context, index) {
                         Election election = snapshot.data![index];
                         return GestureDetector(
-                          onTap: () =>
-                              Get.toNamed('/scoreboard/${election.key}'),
+                          onTap: () => Get.toNamed('/scoreboard',
+                              arguments: {'election': election}),
                           child: ElectionCard(
                             election: election,
                           ),

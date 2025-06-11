@@ -2,8 +2,8 @@ import 'package:fifidianana/app/models/election_model.dart';
 import 'package:flutter/material.dart';
 
 class ElectionCard extends StatelessWidget {
-  Election election;
-  ElectionCard({super.key, required this.election});
+  final Election election;
+  const ElectionCard({super.key, required this.election});
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +42,16 @@ class ElectionCard extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('Sampana :'), Text(election.sampana)],
+              children: [const Text('Sampana :'), Text(election.sampana)],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('Poste :'), Text(election.poste)],
+              children: [const Text('Poste :'), Text(election.poste)],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Date :'),
+                const Text('Date :'),
                 Text(election.date.toString().split(' ')[0])
               ],
             ),
