@@ -24,6 +24,7 @@ class HomeView extends GetView<HomeController> {
           //   ],
           // ),
           body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(
             height: (kToolbarHeight / 3) * 2,
@@ -187,44 +188,119 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
           ),
-          const Divider(
-            indent: kToolbarHeight,
-            endIndent: kToolbarHeight,
-          ),
+          // const Divider(
+          //   indent: kToolbarHeight,
+          //   endIndent: kToolbarHeight,
+          // ),
           Expanded(
-            child: FutureBuilder(
-                future: controller.getAllElections(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                    return GridView.builder(
-                      padding: const EdgeInsets.all(16),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                      ),
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        Election election = snapshot.data![index];
-                        return GestureDetector(
-                          onTap: () =>
-                              Get.toNamed('/scoreboard/${election.key}'),
-                          child: ElectionCard(
-                            election: election,
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    return const Center(
-                      child: Text('Aucune élection à afficher'),
-                    );
-                  }
-                }),
+            child: Container(
+              margin: EdgeInsets.all(10.0),
+              width: 500,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black12),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              child: FutureBuilder(
+                  future: controller.getAllElections(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                      return ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        // gridDelegate:
+                        //     const SliverGridDelegateWithFixedCrossAxisCount(
+                        //   crossAxisCount: 4,
+                        //   crossAxisSpacing: 16,
+                        //   mainAxisSpacing: 16,
+                        // ),
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          Election election = snapshot.data![index];
+                          return GestureDetector(
+                            onTap: () => Get.toNamed('/scoreboard',
+                                arguments: {'election': election}),
+                            child: Container(
+                              // decoration: BoxDecoration(color: Colors.black12),
+                              child: ListTile(
+                                // leading: CircleAvatar(
+                                //   radius: 6,
+                                //   backgroundColor: Colors.red,
+                                // ),
+                                trailing: Chip(
+                                  side: BorderSide.none,
+                                  color: MaterialStatePropertyAll(
+                                      Colors.red.withOpacity(.15)),
+                                  label: Text(
+                                    'terminé',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                                title: Text(
+                                    "Fifidianana ${election.poste} ${election.sampana}"),
+                                subtitle: Text(
+                                    "${election.date.toString().split(' ')[0]}"),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(
+                        child: Text('Aucune élection à afficher'),
+                      );
+                    }
+                  }),
+            ),
           ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 8.0),
+            margin: EdgeInsets.only(bottom: 10.0),
+            width: 400,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 6.0,
+                      backgroundColor: Colors.amber,
+                    ),
+                    SizedBox(
+                      width: 6.0,
+                    ),
+                    Text('En attente')
+                  ],
+                ),
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 6.0,
+                      backgroundColor: Colors.blue,
+                    ),
+                    SizedBox(
+                      width: 6.0,
+                    ),
+                    Text('En cours')
+                  ],
+                ),
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 6.0,
+                      backgroundColor: Colors.red,
+                    ),
+                    SizedBox(
+                      width: 6.0,
+                    ),
+                    Text('Terminé')
+                  ],
+                ),
+              ],
+            ),
+          )
         ],
       ));
     });

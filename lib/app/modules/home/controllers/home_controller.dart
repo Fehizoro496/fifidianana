@@ -9,10 +9,10 @@ class HomeController extends GetxController {
   TextEditingController sampanaCtrl = TextEditingController();
   TextEditingController dateCtrl = TextEditingController();
 
-  // @override
-  // void onInit() async {
-  //   super.onInit();
-  // }
+  @override
+  void onInit() async {
+    super.onInit();
+  }
 
   Future<void> deleteAllElections() async {
     await _hiveService.deleteAllElections();
