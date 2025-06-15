@@ -39,12 +39,16 @@ class HiveService extends GetxService {
     return electionsBox.values.toList();
   }
 
+  Future<List<Candidat>> getAllCandidats() async {
+    return candidatsBox.values.toList();
+  }
+
   List<Election> get allElections => electionsBox.values.toList();
   List<Candidat> get allCandidats => candidatsBox.values.toList();
 
-  List<Candidat> getCandidatsByElection(Election election) {
+  Future<List<Candidat>> getCandidatsByElection(Election election) async {
     return candidatsBox.values
-        .where((candidat) => candidat.election.key == election.key)
+        .where((candidat) => candidat.election.sampana == election.sampana)
         .toList();
   }
 
@@ -54,6 +58,10 @@ class HiveService extends GetxService {
 
   Future<void> deleteCandidat(Candidat candidat) async {
     await candidat.delete();
+  }
+
+  Future<void> deleteAllCandidats() async {
+    await candidatsBox.clear();
   }
 
   Future<void> deleteElection(Election election) async {

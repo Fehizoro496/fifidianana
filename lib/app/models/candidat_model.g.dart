@@ -17,25 +17,34 @@ class CandidatAdapter extends TypeAdapter<Candidat> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Candidat(
-      nom: fields[0] as String,
-      photoDeProfil: fields[1] as Uint8List,
-      nombreDeVoie: fields[2] as int,
-      election: fields[3] as Election,
+      numero: fields[0] as int,
+      nom: fields[1] as String,
+      pseudo: fields[2] as String,
+      nombreDeVoie: fields[3] as int,
+      election: fields[4] as Election,
+      poste: fields[5] as String,
+      colorFactor: fields[6] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Candidat obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.nom)
+      ..write(obj.numero)
       ..writeByte(1)
-      ..write(obj.photoDeProfil)
+      ..write(obj.nom)
       ..writeByte(2)
-      ..write(obj.nombreDeVoie)
+      ..write(obj.pseudo)
       ..writeByte(3)
-      ..write(obj.election);
+      ..write(obj.nombreDeVoie)
+      ..writeByte(4)
+      ..write(obj.election)
+      ..writeByte(5)
+      ..write(obj.poste)
+      ..writeByte(6)
+      ..write(obj.colorFactor);
   }
 
   @override

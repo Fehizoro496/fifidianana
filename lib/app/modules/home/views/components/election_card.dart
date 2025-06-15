@@ -18,7 +18,7 @@ class ElectionCard extends StatelessWidget {
           children: [
             Text(
               textAlign: TextAlign.center,
-              'Fifidianana ${election.poste} ${election.sampana.toUpperCase()}',
+              "Fifidianana biraon'ny ${election.sampana.toUpperCase()}",
               maxLines: 2,
               style:
                   const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),

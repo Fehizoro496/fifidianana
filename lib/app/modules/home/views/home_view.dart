@@ -54,25 +54,6 @@ class HomeView extends GetView<HomeController> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: TextField(
-                              controller: controller.posteCtrl,
-                              decoration: InputDecoration(
-                                focusColor: Colors.blue,
-                                labelText: 'Poste',
-                                // prefixIcon: const Icon(Icons.person,
-                                //     color: Colors.black54),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                fillColor: Colors.black12,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: TextField(
                               controller: controller.sampanaCtrl,
                               decoration: InputDecoration(
                                 focusColor: Colors.blue,

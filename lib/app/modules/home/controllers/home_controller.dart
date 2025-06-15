@@ -31,7 +31,6 @@ class HomeController extends GetxController {
   void addElection() {
     _hiveService
         .addElection(Election(
-      poste: posteCtrl.text,
       sampana: sampanaCtrl.text,
       date: DateTime.parse(dateCtrl.text), // Parse the date string
     ))

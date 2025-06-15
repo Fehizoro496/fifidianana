@@ -7,21 +7,18 @@ part 'election_model.g.dart';
 @HiveType(typeId: 0)
 class Election extends HiveObject {
   @HiveField(0)
-  String poste;
-
-  @HiveField(1)
   String sampana;
 
-  @HiveField(2)
+  @HiveField(1)
   int nombreDeVoteBlanc;
 
-  @HiveField(3)
+  @HiveField(2)
   int nombreDeVoteInvalide;
 
-  @HiveField(4)
+  @HiveField(3)
   DateTime date;
 
-  @HiveField(5)
+  @HiveField(4)
   String get etat => _etat;
 
   set etat(String value) {
@@ -35,7 +32,6 @@ class Election extends HiveObject {
   late String _etat;
 
   Election({
-    required this.poste,
     required this.sampana,
     this.nombreDeVoteBlanc = 0,
     this.nombreDeVoteInvalide = 0,

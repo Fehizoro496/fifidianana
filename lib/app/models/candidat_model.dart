@@ -7,21 +7,40 @@ part 'candidat_model.g.dart';
 @HiveType(typeId: 1)
 class Candidat extends HiveObject {
   @HiveField(0)
-  String nom;
+  int numero;
 
   @HiveField(1)
-  Uint8List photoDeProfil;
+  String nom;
 
   @HiveField(2)
-  int nombreDeVoie;
+  String pseudo;
 
   @HiveField(3)
+  int nombreDeVoie;
+
+  @HiveField(4)
   Election election;
 
-  Candidat({
-    required this.nom,
-    required this.photoDeProfil,
-    this.nombreDeVoie = 0,
-    required this.election,
-  });
+  @HiveField(5)
+  String poste;
+
+  @HiveField(6)
+  int colorFactor;
+
+  Candidat(
+      {required this.numero,
+      required this.nom,
+      required this.pseudo,
+      this.nombreDeVoie = 0,
+      required this.election,
+      required this.poste,
+      required this.colorFactor});
+
+  void incrementVoice() {
+    nombreDeVoie += 1;
+  }
+
+  void decerementVoice() {
+    nombreDeVoie -= 1;
+  }
 }

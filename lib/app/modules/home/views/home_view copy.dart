@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (controller) {
@@ -36,7 +36,7 @@ class HomeView extends GetView<HomeController> {
           Center(
             child: Container(
               margin: const EdgeInsets.all(16),
-              width: Get.width,
+              width: 500,
               child: ElevatedButton(
                 onPressed: () {
                   Get.dialog(Dialog(
@@ -44,31 +44,16 @@ class HomeView extends GetView<HomeController> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16.0)),
-                      height: 350,
+                      height: 300,
                       width: 300,
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('Ajout éléction'),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: TextField(
-                              controller: controller.posteCtrl,
-                              decoration: InputDecoration(
-                                focusColor: Colors.blue,
-                                labelText: 'Poste',
-                                // prefixIcon: const Icon(Icons.person,
-                                //     color: Colors.black54),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                fillColor: Colors.black12,
-                              ),
-                            ),
+                          const Text(
+                            'Ajout éléction',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18.0),
                           ),
                           Padding(
                             padding:
@@ -194,7 +179,7 @@ class HomeView extends GetView<HomeController> {
           // ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(10.0),
               width: 500,
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black12),
@@ -219,27 +204,47 @@ class HomeView extends GetView<HomeController> {
                           return GestureDetector(
                             onTap: () => Get.toNamed('/scoreboard',
                                 arguments: {'election': election}),
-                            child: Container(
+                            child: Column(
                               // decoration: BoxDecoration(color: Colors.black12),
-                              child: ListTile(
-                                // leading: CircleAvatar(
-                                //   radius: 6,
-                                //   backgroundColor: Colors.red,
-                                // ),
-                                trailing: Chip(
-                                  side: BorderSide.none,
-                                  color: MaterialStatePropertyAll(
-                                      Colors.red.withOpacity(.15)),
-                                  label: Text(
-                                    'terminé',
-                                    style: TextStyle(color: Colors.red),
+                              children: [
+                                ListTile(
+                                  // leading: CircleAvatar(
+                                  //   radius: 6,
+                                  //   backgroundColor: Colors.red,
+                                  // ),
+                                  // hoverColor: Colors.green,
+                                  leading: Chip(
+                                    side: BorderSide.none,
+                                    color: MaterialStatePropertyAll(
+                                        stateColor[election.etat]!
+                                            .withOpacity(.20)),
+                                    label: Text(
+                                      election.etat,
+                                      style: TextStyle(
+                                          color: stateColor[election.etat]),
+                                    ),
+                                  ),
+                                  title: Text(
+                                    "Fifidianana biraon'ny ${election.sampana}",
+                                    style: const TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  subtitle: Text(
+                                    election.date.toString().split(' ')[0],
+                                    style: const TextStyle(
+                                        fontSize: 12.0, color: Colors.black45),
                                   ),
                                 ),
-                                title: Text(
-                                    "Fifidianana ${election.poste} ${election.sampana}"),
-                                subtitle: Text(
-                                    "${election.date.toString().split(' ')[0]}"),
-                              ),
+                                const Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.0),
+                                  child: Divider(
+                                    height: 1.0,
+                                    color: Colors.black12,
+                                  ),
+                                )
+                              ],
                             ),
                           );
                         },
@@ -252,57 +257,18 @@ class HomeView extends GetView<HomeController> {
                   }),
             ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 8.0),
-            margin: EdgeInsets.only(bottom: 10.0),
-            width: 400,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 6.0,
-                      backgroundColor: Colors.amber,
-                    ),
-                    SizedBox(
-                      width: 6.0,
-                    ),
-                    Text('En attente')
-                  ],
-                ),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 6.0,
-                      backgroundColor: Colors.blue,
-                    ),
-                    SizedBox(
-                      width: 6.0,
-                    ),
-                    Text('En cours')
-                  ],
-                ),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 6.0,
-                      backgroundColor: Colors.red,
-                    ),
-                    SizedBox(
-                      width: 6.0,
-                    ),
-                    Text('Terminé')
-                  ],
-                ),
-              ],
-            ),
-          )
         ],
       ));
     });
   }
+
+  // Color getStateColor(String etat){
+  //   return
+  // }
+
+  final Map<String, Color> stateColor = {
+    "en attente": Colors.amber,
+    "en cours": Colors.blue,
+    "terminée": Colors.green
+  };
 }
